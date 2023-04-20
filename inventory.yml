@@ -8,9 +8,10 @@ all:
       vars:
         ansible_user: "pi"
         ansible_connection: ssh
+        ansible_ssh_pass: pi
     wsl:
       hosts:
         "localhost":
       vars:
-        ansible_user: "{{ local_username }}"
+        ansible_user: ali
         ansible_connection: local
