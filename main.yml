@@ -1,0 +1,24 @@
+---
+- name: Ensure SSH keys are generated locally.
+  hosts: wsl
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Generate key pair.
+      ansible.builtin.openssh_keypair:
+        path: ~/.ssh/pi/pies
+      register: ssh_result
+
+- name: Upload public key to pies.
+  hosts: fresh_pies
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Authorized keys
+      ansible.builtin.authorized_key:
+        user: pi
+        key: "{{ hostvars.localhost.ssh_result.public_key }}"
+        state: present
+        exclusive: true
+      when: hostvars.localhost.ssh_result is defined
+
