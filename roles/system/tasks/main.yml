@@ -1,0 +1,15 @@
+---
+- name: Ensure wifi credentials exist.
+  ansible.builtin.template:
+    src: wpa_supplicant.conf
+    dest: /etc/wpa_supplicant/wpa_supplicant.conf
+    backup: true
+    mode: 0600
+    owner: root
+  register: template_result
+
+- name: Reboot
+  ansible.builtin.reboot:
+    pre_reboot_delay: 0
+    post_reboot_delay: 5
+  when: template_result.changed

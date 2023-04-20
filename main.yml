@@ -22,3 +22,9 @@
         exclusive: true
       when: hostvars.localhost.ssh_result is defined
 
+- name: System role.
+  hosts: fresh_pies
+  become: true
+  gather_facts: false
+  roles:
+    - role: system
