@@ -1,0 +1,16 @@
+---
+all:
+  children:
+    fresh_pies:
+      hosts:
+        172.16.100.159:
+        172.16.100.243:
+      vars:
+        ansible_user: "pi"
+        ansible_connection: ssh
+    wsl:
+      hosts:
+        "localhost":
+      vars:
+        ansible_user: "{{ local_username }}"
+        ansible_connection: local
